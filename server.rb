@@ -4,17 +4,28 @@ class Server
 
   def initialize(id)
     @id = id
-    self.class.base_uri "#{configuration["alice"]["base_url"]}:#{configuration["alice"]["port"]}"
+    self.class.base_uri "#{configuration["alice"]["base_url"]}:" +
+                        "#{configuration["alice"]["port"]}"
   end
 
   def queues
-    requested_attributes = %w(name durable auto_delete messages_ready messages_unacknowledged messages_uncommitted messages acks_uncommitted consumers transactions memory)
+    requested_attributes = %w[name
+                              durable
+                              auto_delete
+                              messages_ready
+                              messages_unacknowledged
+                              messages_uncommitted
+                              messages
+                              acks_uncommitted
+                              consumers
+                              transactions
+                              memory]
     get("/queues/root/#{requested_attributes.join('/')}")["queues"]
   end
 
-  def bindings
-    get("/bindings")["bindings"]
-  end
+  #def bindings
+  #  get("/bindings")["bindings"]
+  #end
 
   def control
     get("/control")
@@ -29,9 +40,9 @@ class Server
      end
   end
 
-  def exchanges
-    get("/exchanges")["exchanges"]
-  end
+  #def exchanges
+  #  get("/exchanges")["exchanges"]
+  #end
 
   def configuration
     @configuration ||= self.class.configurations[self.id]

@@ -32,10 +32,10 @@ get '/queues/?' do
   haml :queues
 end
 
-get '/bindings' do
-  @bindings = @server.bindings
-  haml :bindings
-end
+#get '/bindings' do
+#  @bindings = @server.bindings
+#  haml :bindings
+#end
 
 get '/config' do
   @queues = @server.queues
@@ -43,10 +43,10 @@ get '/config' do
   haml :config
 end
 
-get '/queues/:name/delete' do
-  carrot.queue(params[:name]).delete
-  redirect '/'
-end
+#get '/queues/:name/delete' do
+#  carrot.queue(params[:name]).delete
+#  redirect '/'
+#end
 
 post '/config' do
   queue_config.update(@server.id => params["queues"])
@@ -56,10 +56,10 @@ post '/config' do
   redirect '/config'
 end
 
-get '/exchanges/?' do
-  @exchanges = @server.exchanges.reject {|e| e["name"].blank? }
-  haml :exchanges
-end
+#get '/exchanges/?' do
+#  @exchanges = @server.exchanges.reject {|e| e["name"].blank? }
+#  haml :exchanges
+#end
 
 def carrot
   Carrot.new(:host => @server.configuration["rabbitmq"]["host"])
